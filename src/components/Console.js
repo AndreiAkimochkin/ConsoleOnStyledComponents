@@ -1,17 +1,44 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components';
+import {Flex} from "./Flex";
+import {Line} from "./Line";
 
-const StyledFlex = styled.div`
-display:flex;
-flex-direction: ${props =>props.direction || 'row'};
-align-items: ${props =>props.align|| 'stretch'};
-justify-content: ${props =>props.justify || 'stretch'};
-margin: ${({margin}) =>margin || '0'};
+const StyledConsole = styled.textarea`
+width:100%;
+height: 70vh;
+background: black;
+font-size: 24px;
+border: none;
+resize: none;
+color: ${props=>props.color  || props.theme.colors.primary};
+&:focus {
+ outline: none
+}
+@media: ${props=>props.theme.media.phone} {
+        border: 1px solid red
+}
+@media: ${props=>props.theme.media.tablet} {
+        border: 1px solid green
+}
 `
 
-export function Flex(props) {
-    return (
-        <StyledFlex {...props}/>
+export function Console({color, ...props}) {
 
+    const [lines, setLines] = useState(['C/users/docs'])
+
+    const onKeyPress = (e) => {
+        if(e.charCode == 13) {
+            setLines([...lines, 'C/users/docs'])
+        }
+    }
+    return (
+        <Flex>
+            <Flex direction={'column'} margin={'0 10px 10px'}>
+                {lines.map(line =>
+                    <Line color={color}>{line}</Line>
+                )}
+            </Flex>
+            <StyledConsole onKeyPress={onKeyPress} color={'green'}{...props}/>
+        </Flex>
         )
 }

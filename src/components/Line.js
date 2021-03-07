@@ -1,23 +1,15 @@
 import React from 'react'
 import styled from 'styled-components';
 
-const StyledConsole = styled.textarea`
-width:100%;
-height: 70vh;
-background: black;
+const StyledLine = styled.div`
 font-size: 24px;
-border: none;
-resize: none;
-color: ${({color})=>color || 'white'};
-&:focus {
- outline: none
-}
+color: ${props=>props.color  || props.theme.colors.primary};
 
 `
 
-export function Console(props) {
+export function Line(props) {
     return (
-        <StyledConsole {...props}/>
+        <StyledLine {...props}/>
 
         )
 }

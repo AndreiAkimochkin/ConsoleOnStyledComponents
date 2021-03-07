@@ -1,23 +1,50 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, {css, keyframes} from 'styled-components';
 
-const StyledConsole = styled.textarea`
-width:100%;
-height: 70vh;
-background: black;
-font-size: 24px;
-border: none;
-resize: none;
-color: ${({color})=>color || 'white'};
-&:focus {
- outline: none
+const rotateAnimation = keyframes`
+0% {
+    transform: rotateZ(0deg);
 }
-
+100% {
+   transform: rotateZ(360deg);
+}
 `
 
-export function Console(props) {
+const StyledButton = styled.button`
+border: none;
+padding: 10px 15px;
+font-size: 18px;
+cursor: pointer;
+&:focus {
+ outline: none
+};
+&:hover {
+    animation: ${rotateAnimation} 1s infinite linear;
+}
+align-self: ${props=>props.align || 'stretch'};
+
+${props=>props.primary && css`
+color: ${props=>props.color ||'white'};
+background: ${props=>props.background ||'white'};
+` };
+
+${props=>props.outlined && css`
+color: ${props=>props.color ||'white'};
+border: 1px solid ${props=>props.color || "white"};
+background: transparent;
+` };
+`
+
+const LargeButton = styled(StyledButton)`
+    font-size: 32px;
+    
+`
+
+
+
+export function Button(props) {
     return (
-        <StyledConsole {...props}/>
+        <LargeButton {...props}/>
 
         )
 }
